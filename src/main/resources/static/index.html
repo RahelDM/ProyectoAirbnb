@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Alojamientos en NY</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css"/>
+    </noscript>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
+    <script src="assets/js/spin/spin.js"></script>
+    <script src="assets/js/leaflet.spin.min.js"></script>
+
+
+    <link rel="stylesheet" href="assets/css/map.css">
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper" class="divided">
+
+    <!-- One -->
+    <section
+            class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
+        <div class="content">
+            <h1>Alojamientos en NY</h1>
+            <p class="major">Datos procedentes de Airbnb</p>
+            <ul class="actions stacked">
+                <form id="form-precio" method="post" action="#">
+                    <div class="fields">
+                        <div class="field half">
+                            <label for="distrito">Distrito</label>
+                            <select name="distrito" id="distrito"></select>
+                        </div>
+                        <div class="field quarter">
+                            <label for="min">Precio mínimo</label>
+                            <input type="text" name="min" id="min" value=""/>
+                        </div>
+                        <div class="field quarter">
+                            <label for="max">Precio máximo</label>
+                            <input type="text" name="max" id="max" value=""/>
+                        </div>
+                    </div>
+                    <ul class="actions special">
+                        <li><input type="submit" name="submit" value="Buscar"/></li>
+                    </ul>
+                </form>
+            </ul>
+            <ul class="actions stacked">
+                <form id="form-habitaciones" method="post" action="#">
+                    <div class="fields">
+                        <div class="field half">
+                            <label for="distritoHab">Distrito</label>
+                            <select name="distritoHab" id="distritoHab"></select>
+                        </div>
+                        <div class="field quarter">
+                            <label for="habitaciones">Habitaciones</label>
+                            <input type="text" name="habitaciones" id="habitaciones" value=""/>
+                        </div>
+                        <div class="field quarter">
+                            <label for="banos">Baños</label>
+                            <input type="text" name="banos" id="banos" value=""/>
+                        </div>
+                    </div>
+                    <ul class="actions special">
+                        <li><input type="submit" name="submit" value="Buscar"/></li>
+                    </ul>
+                </form>
+            </ul>
+        </div>
+        <div class="image" id="map">
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="wrapper style1 align-center">
+        <div class="inner">
+            <p>&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </div>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
