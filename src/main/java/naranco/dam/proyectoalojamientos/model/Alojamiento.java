@@ -1,19 +1,19 @@
 package naranco.dam.proyectoalojamientos.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.Objects;
 
 @Entity(name = "alojamientos")
 @Getter
 @Setter
-@NoArgsConstructor @AllArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Alojamiento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "aseos", nullable = false)
@@ -40,4 +40,44 @@ public class Alojamiento {
     @Column(name = "puntuacion", nullable = false)
     private double puntuacion;
 
+    @Column(name = "nombre", nullable = false)
+    private String nombre;
+
+    @ManyToOne()
+    @JoinColumn(name = "barrio_id")
+    private Barrio barrio;
+
+    @ManyToOne()
+    @JoinColumn(name = "tipoHabitacion_id")
+    private TipoHabitacion tipoHabitacion;
+
+    @ManyToOne()
+    @JoinColumn(name = "propietario_id")
+    private Propietario propietario;
+
+    public Alojamiento(Long id, int aseos, int banos, int camas, int habitaciones, double latitud, double longitud, double precio, double puntuacion, String nombre) {
+        this.id = id;
+        this.aseos = aseos;
+        this.banos = banos;
+        this.camas = camas;
+        this.habitaciones = habitaciones;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.precio = precio;
+        this.puntuacion = puntuacion;
+        this.nombre = nombre;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Alojamiento that = (Alojamiento) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
