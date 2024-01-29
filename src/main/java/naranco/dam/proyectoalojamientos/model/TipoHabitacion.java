@@ -1,5 +1,7 @@
 package naranco.dam.proyectoalojamientos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +27,7 @@ public class TipoHabitacion {
 
 
     @OneToMany(mappedBy = "tipoHabitacion")
+    @JsonIgnore
     private Set<Alojamiento> alojamientos = new LinkedHashSet<Alojamiento>();
 
 

@@ -3,6 +3,7 @@ package naranco.dam.proyectoalojamientos.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity(name = "alojamientos")
@@ -11,7 +12,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Alojamiento {
+public class Alojamiento implements Serializable {
 
     @Id
     private Long id;

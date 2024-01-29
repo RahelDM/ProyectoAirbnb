@@ -1,5 +1,7 @@
 package naranco.dam.proyectoalojamientos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +29,7 @@ public class Distrito {
     private String nombre;
 
     @OneToMany(mappedBy = "distrito")
+    @JsonIgnore
     private Set<Barrio> barrios = new LinkedHashSet<>();
 
 
