@@ -1,4 +1,4 @@
-package naranco.dam.proyectoalojamientos.respositories;
+package naranco.dam.proyectoalojamientos.respository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

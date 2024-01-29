@@ -17,7 +17,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Distrito implements Serializable {
+public class Distrito {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO)

@@ -27,17 +27,12 @@ public class Propietario {
     @Column(name = "nombre")
     private String nombre;
 
-    @OneToMany(mappedBy = "propietario")
-    private Set<Alojamiento> alojamientos = new LinkedHashSet<Alojamiento>();
 
     public Propietario(Long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
-    public Propietario(String nombrePropietario) {
-        this.nombre = nombrePropietario;
-    }
 
     @Override
     public boolean equals(Object o) {

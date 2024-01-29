@@ -1,6 +1,7 @@
 package naranco.dam.proyectoalojamientos;
 
 import naranco.dam.proyectoalojamientos.model.*;
+import naranco.dam.proyectoalojamientos.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -21,7 +22,20 @@ public class AppStartupRunner implements ApplicationListener<ApplicationReadyEve
     @Autowired
     private Environment environment;
 
-    //Listas de datos
+    // ------------------- SERVICIOS -------------------
+    @Autowired
+    private DistritoService distritoService;
+    @Autowired
+    private BarrioService barrioService;
+    @Autowired
+    private PropietarioService propietarioService;
+    @Autowired
+    private TipoHabitacionService tipoHabitacionService;
+    @Autowired
+    private AlojamientoService alojamientoService;
+
+
+    //-------------------  DATOS  -------------------
     private Set<Alojamiento> coleccionAlojamientos = new LinkedHashSet<Alojamiento>();
     private Set<Barrio> coleccionDeBarrios = new LinkedHashSet<Barrio>();
     private Set<Distrito> coleccionDeDistritos = new LinkedHashSet<Distrito>();
@@ -34,27 +48,35 @@ public class AppStartupRunner implements ApplicationListener<ApplicationReadyEve
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
         boolean runDataLoad = Boolean.parseBoolean(environment.getProperty("app.data.run"));
-
         if (runDataLoad) {
             cargarDatosDeFichero();
+            insercionEnBaseDeDatos();
         }
 
-        AppDatabase appDatabase = new AppDatabase(coleccionAlojamientos,coleccionDeBarrios,coleccionDeDistritos,coleccionDePropietarios,coleccionTiposDeHabitacion);
-        appDatabase.insercionEnBaseDeDatos();
+    }
 
-/*
-        System.out.println("---------------------------------------------------------------TIPOS DE HABITACIÓN ---------------------------------------------------------------");
-        Utils.printList(coleccionTiposDeHabitacion);
-        System.out.println("--------------------------------------------------------------- DISTRITOS ---------------------------------------------------------------");
-        Utils.printList(coleccionDeDistritos);
-        System.out.println("--------------------------------------------------------------- BARRIOS ---------------------------------------------------------------");
-        Utils.printList(coleccionDeBarrios);
-        System.out.println("--------------------------------------------------------------- PROPIETARIOS ---------------------------------------------------------------");
-        Utils.printList(coleccionDePropietarios);
-        System.out.println("--------------------------------------------------------------- ALOJAMIENTOS ---------------------------------------------------------------");
-        Utils.printList(coleccionAlojamientos);
-        System.out.println(coleccionAlojamientos.size());
-*/
+    private void insercionEnBaseDeDatos() {
+        distritoService.insertar(coleccionDeDistritos);
+        actualizarLosDistritosBarrios();
+        barrioService.insertar(coleccionDeBarrios);
+        tipoHabitacionService.insertar(coleccionTiposDeHabitacion);
+        propietarioService.insertar(coleccionDePropietarios);
+        actualizarLosAlojamientos();
+        alojamientoService.insertar(coleccionAlojamientos);
+        System.out.println("Inserción hecha");
+    }
+
+    private void actualizarLosAlojamientos() {
+        coleccionAlojamientos.forEach(alojamiento -> {
+            alojamiento.getBarrio().setId(barrioService.obtenerIDBarrioPorNombre(alojamiento.getBarrio().getNombre()));
+            alojamiento.getTipoHabitacion().setId(tipoHabitacionService.obtenerIDTipoHabitacionPorNombre(alojamiento.getTipoHabitacion().getNombre()));
+        });
+    }
+
+    private void actualizarLosDistritosBarrios() {
+        coleccionDeBarrios.forEach(barrio -> {
+            barrio.getDistrito().setId(distritoService.obtenerIdDistritoPorNombre(barrio.getDistrito().getNombre()));
+        });
     }
 
     private void cargarDatosDeFichero() {
@@ -117,14 +139,14 @@ public class AppStartupRunner implements ApplicationListener<ApplicationReadyEve
     }
 
     private void gestionarPropietario(Propietario propietario, Alojamiento alojamiento) {
-        propietario.getAlojamientos().add(alojamiento);
+       // propietario.getAlojamientos().add(alojamiento);
         boolean existe = this.coleccionDePropietarios.add(propietario);
-        if (!existe) {
+ /*       if (!existe) {
             Optional<Propietario> propietarioOptional = this.coleccionDePropietarios.stream().filter((propietarioEnLista -> {
                 return propietarioEnLista.equals(propietarioEnLista);
             })).findFirst();
             propietarioOptional.ifPresent(propietarioEnLista -> propietarioEnLista.getAlojamientos().add(alojamiento));
-        }
+        }*/
     }
 
     private void gestionarTipoHabitacion(TipoHabitacion tipoHabitacion, Alojamiento alojamiento) {
