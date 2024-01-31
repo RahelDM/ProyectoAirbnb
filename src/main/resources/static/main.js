@@ -14,10 +14,14 @@ formPrecio.addEventListener("submit", buscarPorPrecio);
 const formHabitaciones = document.getElementById("form-habitaciones");
 formHabitaciones.addEventListener("submit", buscarPorHabitaciones);
 
+const formCalificaciones = document.getElementById("form-calificaciones");
+formCalificaciones.addEventListener("submit", buscarPorCalificacion);
+
 
 function rellenarDesplegablesDistrito() {
     let desplegable1 = document.getElementById('distrito');
     let desplegable2 = document.getElementById('distritoHab');
+    let desplegable3 = document.getElementById('distritoCalificacion');
 
     fetch('http://localhost:8080/distrito/').then(function (response) {
         return response.json();
@@ -30,6 +34,8 @@ function rellenarDesplegablesDistrito() {
             desplegable1.add(opcion);
             let otra = opcion.cloneNode(true);
             desplegable2.add(otra);
+            let otra2 = opcion.cloneNode(true);
+            desplegable3.add(otra2);
         });
     }).catch(function (err) {
         // There was an error
@@ -39,10 +45,8 @@ function rellenarDesplegablesDistrito() {
 
 function buscarPorPrecio(event) {
     event.preventDefault();
-
     const datos = new FormData(event.target);
     const datosObj = Object.fromEntries(datos.entries());
-
     //Búsqueda por distrito
     if (datosObj.min.length === 0 && datosObj.max.length === 0) {
         buscarAlojamientos('distrito/' + datosObj.distrito);
@@ -53,6 +57,22 @@ function buscarPorPrecio(event) {
             '/min/' + datosObj.min + '/max/' + datosObj.max);
     }
 }
+
+function buscarPorCalificacion(event) {
+    event.preventDefault();
+    const datos = new FormData(event.target);
+    const datosObj = Object.fromEntries(datos.entries());
+    //Búsqueda por distrito
+    if (datosObj.minCalificacion.length === 0 && datosObj.maxCalificacion.length === 0) {
+        buscarAlojamientos('distrito/' + datosObj.distritoCalificacion);
+    } else if (datosObj.minCalificacion.length === 0 || datosObj.maxCalificacion.length === 0) {
+        alert("Debes introducir calificación mínima y máxima");
+    } else {
+        buscarAlojamientos('distrito/' + datosObj.distritoCalificacion +
+            '/minCalificacion/' + datosObj.minCalificacion + '/maxCalificacion/' + datosObj.maxCalificacion);
+    }
+}
+
 
 function buscarPorHabitaciones(event) {
     event.preventDefault();
