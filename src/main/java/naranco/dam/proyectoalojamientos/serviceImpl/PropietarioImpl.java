@@ -7,6 +7,7 @@ import naranco.dam.proyectoalojamientos.service.PropietarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -17,6 +18,12 @@ public class PropietarioImpl implements PropietarioService {
     PropietarioRespository propietarioRespository;
     @Override
     public void insertar(Set<Propietario> propietarios) {
-        propietarioRespository.saveAll(propietarios);
+        for(Propietario propietario:propietarios){
+            Optional<Propietario>propietarioOptional= propietarioRespository.findById(propietario.getId());
+            if(!propietarioOptional.isPresent()){
+                propietarioRespository.save(propietario);
+            }
+        }
     }
+
 }

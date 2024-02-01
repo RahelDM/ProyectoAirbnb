@@ -23,4 +23,8 @@ public interface AlojamientoRepository  extends JpaRepository<Alojamiento,Long> 
 
     @Query("SELECT a FROM alojamientos a WHERE a.barrio.distrito.id=?1 AND a.puntuacion BETWEEN ?2 AND ?3")
     List<Alojamiento> getAlojamientoByDistritoCalificacion(Long id,  double minCalificacion, double maxCalificacion);
+
+    @Query("SELECT a FROM alojamientos a WHERE a.barrio.distrito.id=?1 AND a.precio BETWEEN ?2 AND ?3 AND a.puntuacion BETWEEN ?4 AND ?5")
+    List<Alojamiento> getAlojamientoByDistritoCompleto(Long id, double minCompleta, double maxCompleta, double minCalificacionCompleta, double maxCalificacionCompleta);
+
 }

@@ -22,7 +22,12 @@ public class BarrioServiceImpl  implements BarrioService {
     private DistritoRespository distritoRespository;
     @Override
     public void insertar(Set<Barrio> barrios) {
-        barrioRespository.saveAll(barrios);
+        for(Barrio barrio:barrios){
+            Long idBarrio = barrioRespository.findByNombre(barrio.getNombre());
+            if(idBarrio==null){
+                barrioRespository.save(barrio);
+            }
+        }
     }
 
     @Override

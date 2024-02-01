@@ -45,4 +45,11 @@ public class AlojamientoController {
         return alojamientoService.getAlojamientoByDistritoCalificacion(id,minCalificacion,maxCalificacion);
     }
 
+    @GetMapping("distrito/{id}/min/{minCompleta}/max/{maxCompleta}/minCalificacion/{minCalificacionCompleta}/maxCalificacion/{maxCalificacionCompleta}")
+    public List<Alojamiento> getAlojamientoByDistritoCompleto(@PathVariable Long id,@PathVariable double minCompleta,
+                                                              @PathVariable double maxCompleta,  @PathVariable double minCalificacionCompleta,
+                                                              @PathVariable double maxCalificacionCompleta){
+        return alojamientoService.getAlojamientoByDistritoCompleto(id,minCompleta,maxCompleta,minCalificacionCompleta,maxCalificacionCompleta);
+    }
+
 }

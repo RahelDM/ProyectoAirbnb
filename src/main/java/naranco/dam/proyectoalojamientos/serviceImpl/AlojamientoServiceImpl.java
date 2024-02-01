@@ -52,4 +52,9 @@ public class AlojamientoServiceImpl implements AlojamientoService {
     public List<Alojamiento> getAlojamientoByDistritoCalificacion(Long id, double minCalificacion, double maxCalificacion) {
         return alojamientoRepository.getAlojamientoByDistritoCalificacion(id,minCalificacion,maxCalificacion);
     }
+
+    @Override
+    public List<Alojamiento> getAlojamientoByDistritoCompleto(Long id, double minCompleta, double maxCompleta, double minCalificacionCompleta, double maxCalificacionCompleta) {
+        return alojamientoRepository.getAlojamientoByDistritoCompleto(id,minCompleta,maxCompleta,minCalificacionCompleta,maxCalificacionCompleta);
+    }
 }

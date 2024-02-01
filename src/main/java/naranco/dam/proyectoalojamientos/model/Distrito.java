@@ -43,19 +43,6 @@ public class Distrito {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Distrito distrito = (Distrito) o;
-        return Objects.equals(id, distrito.id) && Objects.equals(nombre, distrito.nombre);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nombre);
-    }
-
-    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Distrito{");
         sb.append("id=").append(id);
@@ -63,6 +50,18 @@ public class Distrito {
         sb.append(", barrios=").append(barrios);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Distrito distrito)) return false;
+        return Objects.equals(getId(), distrito.getId()) && Objects.equals(getNombre(), distrito.getNombre());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNombre());
     }
 }
 

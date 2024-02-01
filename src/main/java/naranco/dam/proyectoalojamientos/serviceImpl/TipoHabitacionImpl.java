@@ -17,7 +17,12 @@ public class TipoHabitacionImpl implements TipoHabitacionService {
     private TipoHabitacionRespository tipoHabitacionRespository;
     @Override
     public void insertar(Set<TipoHabitacion> tiposHabitacion) {
-        tipoHabitacionRespository.saveAll(tiposHabitacion);
+        for(TipoHabitacion tipoHabitacion:tiposHabitacion){
+            Long idHabitacion = tipoHabitacionRespository.findByNombre(tipoHabitacion.getNombre());
+            if(idHabitacion==null){
+                tipoHabitacionRespository.save(tipoHabitacion);
+            }
+        }
     }
 
     @Override

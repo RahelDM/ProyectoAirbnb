@@ -1,0 +1,5 @@
+Barrios: 221
+Alojamientos: 20758
+Distritos: 5
+TiposHabitacion: 4
+Propietatios: 12449

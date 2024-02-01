@@ -18,7 +18,12 @@ public class DistritoServiceImpl implements DistritoService {
 
     @Override
     public void insertar(Set<Distrito> distritos) {
-       distritoRespository.saveAll(distritos);
+        for (Distrito distrito:distritos){
+            Long distritoID = distritoRespository.findByNombre(distrito.getNombre());
+            if(distritoID==null){
+                distritoRespository.save(distrito);
+            }
+        }
     }
     @Override
     public List<Distrito> getDistritos() {
