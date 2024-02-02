@@ -4,14 +4,17 @@ package naranco.dam.proyectoalojamientos.controller;
 import naranco.dam.proyectoalojamientos.model.Alojamiento;
 import naranco.dam.proyectoalojamientos.service.AlojamientoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
 @RequestMapping(value = "alojamiento/")
-public class AlojamientoController {
+public class AlojamientoController extends AbstractController{
 
     @Autowired
     private AlojamientoService alojamientoService;
@@ -47,9 +50,19 @@ public class AlojamientoController {
 
     @GetMapping("distrito/{id}/min/{minCompleta}/max/{maxCompleta}/minCalificacion/{minCalificacionCompleta}/maxCalificacion/{maxCalificacionCompleta}")
     public List<Alojamiento> getAlojamientoByDistritoCompleto(@PathVariable Long id,@PathVariable double minCompleta,
-                                                              @PathVariable double maxCompleta,  @PathVariable double minCalificacionCompleta,
-                                                              @PathVariable double maxCalificacionCompleta){
+                                                              @PathVariable double maxCompleta,  @PathVariable double minCalificacionCompleta,@PathVariable double maxCalificacionCompleta){
         return alojamientoService.getAlojamientoByDistritoCompleto(id,minCompleta,maxCompleta,minCalificacionCompleta,maxCalificacionCompleta);
+    }
+
+    @PostMapping()
+    public ResponseEntity<Alojamiento> addAlojamiento(@RequestBody Alojamiento alojamiento
+    ,@RequestHeader String authorization){
+        comprobarAutorizacion(authorization);
+        Optional<Alojamiento> alojamientoOptional = alojamientoService.findAlojamientoById(alojamiento.getId());
+        if(alojamientoOptional.isPresent()){
+            return new ResponseEntity<Alojamiento>(alojamientoService.saveAlojamiento(alojamiento), HttpStatus.OK);
+        }
+        return new ResponseEntity<Alojamiento>(HttpStatus.NO_CONTENT);
     }
 
 }

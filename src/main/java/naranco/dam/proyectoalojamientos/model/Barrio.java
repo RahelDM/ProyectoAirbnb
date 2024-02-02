@@ -65,7 +65,7 @@ public class Barrio {
         final StringBuilder sb = new StringBuilder("Barrio{");
         sb.append("id=").append(id);
         sb.append(", nombre='").append(nombre).append('\'');
-        sb.append(", distrito=").append(distrito.getNombre());
+        sb.append(", distrito=").append(distrito);
         sb.append('}');
         return sb.toString();
     }

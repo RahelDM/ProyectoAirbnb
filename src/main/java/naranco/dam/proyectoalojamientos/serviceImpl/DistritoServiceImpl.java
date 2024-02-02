@@ -31,8 +31,7 @@ public class DistritoServiceImpl implements DistritoService {
     }
     @Override
     public Long obtenerIdDistritoPorNombre(String nombreDistrito) {
-        Long distritoID = distritoRespository.findByNombre(nombreDistrito);
-        return distritoID;
+        return distritoRespository.findByNombre(nombreDistrito);
     }
 
 

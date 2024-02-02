@@ -1,9 +1,7 @@
 package naranco.dam.proyectoalojamientos.controller;
 
 
-import naranco.dam.proyectoalojamientos.model.Alojamiento;
 import naranco.dam.proyectoalojamientos.model.Distrito;
-import naranco.dam.proyectoalojamientos.service.AlojamientoService;
 import naranco.dam.proyectoalojamientos.service.DistritoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

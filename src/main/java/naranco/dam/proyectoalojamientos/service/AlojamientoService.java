@@ -1,15 +1,17 @@
 package naranco.dam.proyectoalojamientos.service;
 
 import naranco.dam.proyectoalojamientos.model.Alojamiento;
-import naranco.dam.proyectoalojamientos.model.Distrito;
-import org.springframework.data.jpa.repository.Query;
+
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public interface AlojamientoService {
 
-    List<Alojamiento> getAlojamientos();
+    List<Alojamiento> getAlojamientos(); //findAll()
+    Optional<Alojamiento> findAlojamientoById(Long id);
+
     void insertar(Set<Alojamiento> alojamientos);
     List<Alojamiento>  getAlojamientosByDistrito(Long idDistrito);
 
@@ -22,4 +24,8 @@ public interface AlojamientoService {
     List<Alojamiento> getAlojamientoByDistritoCalificacion(Long id,  double minCalificacion, double maxCalificacion);
 
     List<Alojamiento> getAlojamientoByDistritoCompleto(Long id, double minCompleta, double maxCompleta, double minCalificacionCompleta, double maxCalificacionCompleta);
+
+    Alojamiento saveAlojamiento(Alojamiento alojamiento);
+
+
 }

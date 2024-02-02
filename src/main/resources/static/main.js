@@ -108,8 +108,8 @@ function buscarCompleto(event) {
         alert("Debes introducir calificación mínima y máxima");
     } else if (datosObj.minCompleta.length === 0 || datosObj.maxCompleta.length === 0) {
         alert("Debes introducir precio mínimo y máximo");
-    } else if((datosObj.minCompleta.length != 0 || datosObj.maxCompleta.length != 0)
-        && (datosObj.minCalificacionCompleta.length != 0 || datosObj.maxCalificacionCompleta.length != 0)) {
+    } else if((datosObj.minCompleta.length !== 0 || datosObj.maxCompleta.length !== 0)
+        && (datosObj.minCalificacionCompleta.length !== 0 || datosObj.maxCalificacionCompleta.length !== 0)) {
         buscarAlojamientos('distrito/' + datosObj.distritoCompleto +
             '/min/' + datosObj.minCompleta + '/max/' + datosObj.maxCompleta+ "/minCalificacion/" + datosObj.minCalificacionCompleta
             + "/maxCalificacion/" + datosObj.maxCalificacionCompleta);
@@ -123,7 +123,7 @@ function buscarAlojamientos(url) {
     fetch('http://localhost:8080/alojamiento/' + url).then(function (response) {
         return response.json();
     }).then(function (datos) {
-        if (datos.length == 0) {
+        if (datos.length === 0) {
             alert("No se han encontrado resultados");
         } else {
             pintarAlojamientos(datos);

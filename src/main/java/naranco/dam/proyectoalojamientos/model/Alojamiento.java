@@ -11,7 +11,6 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Alojamiento implements Serializable {
 
     @Id
@@ -75,6 +74,26 @@ public class Alojamiento implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Alojamiento that = (Alojamiento) o;
         return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Alojamiento{");
+        sb.append("id=").append(id);
+        sb.append(", aseos=").append(aseos);
+        sb.append(", banos=").append(banos);
+        sb.append(", camas=").append(camas);
+        sb.append(", habitaciones=").append(habitaciones);
+        sb.append(", latitud=").append(latitud);
+        sb.append(", longitud=").append(longitud);
+        sb.append(", precio=").append(precio);
+        sb.append(", puntuacion=").append(puntuacion);
+        sb.append(", nombre='").append(nombre).append('\'');
+        sb.append(", barrio=").append(barrio);
+        sb.append(", tipoHabitacion=").append(tipoHabitacion);
+        sb.append(", propietario=").append(propietario);
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override

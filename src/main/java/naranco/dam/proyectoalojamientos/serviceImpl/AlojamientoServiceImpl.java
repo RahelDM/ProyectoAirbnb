@@ -57,4 +57,12 @@ public class AlojamientoServiceImpl implements AlojamientoService {
     public List<Alojamiento> getAlojamientoByDistritoCompleto(Long id, double minCompleta, double maxCompleta, double minCalificacionCompleta, double maxCalificacionCompleta) {
         return alojamientoRepository.getAlojamientoByDistritoCompleto(id,minCompleta,maxCompleta,minCalificacionCompleta,maxCalificacionCompleta);
     }
+
+    @Override
+    public Alojamiento saveAlojamiento(Alojamiento alojamiento) {
+        if(alojamiento!=null){
+            return alojamientoRepository.save(alojamiento);
+        }
+        return null;
+    }
 }

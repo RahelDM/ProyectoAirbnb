@@ -20,7 +20,7 @@ public class PropietarioImpl implements PropietarioService {
     public void insertar(Set<Propietario> propietarios) {
         for(Propietario propietario:propietarios){
             Optional<Propietario>propietarioOptional= propietarioRespository.findById(propietario.getId());
-            if(!propietarioOptional.isPresent()){
+            if(!propietarioOptional.isPresent()){ // propietarioOptional.isEmpty()
                 propietarioRespository.save(propietario);
             }
         }

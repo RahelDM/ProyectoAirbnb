@@ -5,13 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Set;
+
 
 public interface AlojamientoRepository  extends JpaRepository<Alojamiento,Long> {
 
     @Query("SELECT a FROM alojamientos a WHERE a.barrio.distrito.id=?1")
     List<Alojamiento> getAlojamientosByDistrito(Long idDistrito);
-
 
     @Query("SELECT a FROM alojamientos a WHERE a.barrio.distrito.id=?1 AND a.precio BETWEEN ?2 AND ?3")
     List<Alojamiento> getAlojamientosByDistritoMaxMin(Long idDistrito, double min, double max);

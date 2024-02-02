@@ -18,8 +18,6 @@ public class BarrioServiceImpl  implements BarrioService {
     @Autowired
     private BarrioRespository barrioRespository;
 
-    @Autowired
-    private DistritoRespository distritoRespository;
     @Override
     public void insertar(Set<Barrio> barrios) {
         for(Barrio barrio:barrios){
