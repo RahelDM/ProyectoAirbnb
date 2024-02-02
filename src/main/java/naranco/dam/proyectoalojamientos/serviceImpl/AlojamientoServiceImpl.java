@@ -25,13 +25,22 @@ public class AlojamientoServiceImpl implements AlojamientoService {
     }
 
     @Override
-    public Optional<Alojamiento> findAlojamientoById(Long id) {
-        return Optional.empty();
+    public Optional<Alojamiento> findById(Long id) {
+        return this.alojamientoRepository.findById(id);
+    }
+
+    @Override
+    public Long obtenerIDAlojamientoPorNombre(String nombre) {
+        return this.alojamientoRepository.findByNombre(nombre);
     }
 
     @Override
     public void insertar(Set<Alojamiento> alojamientos) {
-        alojamientoRepository.saveAll(alojamientos);
+        for(Alojamiento alojamiento:alojamientos){
+            if((alojamientoRepository.findById(alojamiento.getId()).isEmpty())){
+                this.alojamientoRepository.save(alojamiento);
+            }
+        }
     }
 
     @Override
@@ -69,6 +78,16 @@ public class AlojamientoServiceImpl implements AlojamientoService {
         if(alojamiento!=null){
             return alojamientoRepository.save(alojamiento);
         }
+        return null;
+    }
+
+    @Override
+    public Alojamiento updateAlojamiento(Alojamiento alojamiento) {
+        if(alojamiento!=null){
+                this.alojamientoRepository.save(alojamiento);
+                return alojamiento;
+        }
+
         return null;
     }
 }

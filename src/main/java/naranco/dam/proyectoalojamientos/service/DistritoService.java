@@ -9,7 +9,5 @@ public interface DistritoService {
 
     void insertar(Set<Distrito> distritos);
     Long obtenerIdDistritoPorNombre(String nombreDistrito);
-
-
     List<Distrito> getDistritos();
 }

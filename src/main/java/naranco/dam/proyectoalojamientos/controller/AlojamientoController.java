@@ -2,11 +2,18 @@ package naranco.dam.proyectoalojamientos.controller;
 
 
 import naranco.dam.proyectoalojamientos.model.Alojamiento;
+import naranco.dam.proyectoalojamientos.model.Barrio;
+import naranco.dam.proyectoalojamientos.model.Propietario;
+import naranco.dam.proyectoalojamientos.model.TipoHabitacion;
 import naranco.dam.proyectoalojamientos.service.AlojamientoService;
+import naranco.dam.proyectoalojamientos.service.BarrioService;
+import naranco.dam.proyectoalojamientos.service.PropietarioService;
+import naranco.dam.proyectoalojamientos.service.TipoHabitacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +25,14 @@ public class AlojamientoController extends AbstractController{
 
     @Autowired
     private AlojamientoService alojamientoService;
+
+    //Otros servicios:
+    @Autowired
+    private PropietarioService propietarioService;
+    @Autowired
+    private BarrioService barrioService;
+    @Autowired
+    private TipoHabitacionService tipoHabitacionService;
 
     @GetMapping
     public List<Alojamiento> getAlojamientos(){
@@ -54,15 +69,75 @@ public class AlojamientoController extends AbstractController{
         return alojamientoService.getAlojamientoByDistritoCompleto(id,minCompleta,maxCompleta,minCalificacionCompleta,maxCalificacionCompleta);
     }
 
+
+
     @PostMapping()
-    public ResponseEntity<Alojamiento> addAlojamiento(@RequestBody Alojamiento alojamiento
-    ,@RequestHeader String authorization){
+    public ResponseEntity<Alojamiento> addAlojamiento(@RequestBody Alojamiento alojamiento, @RequestHeader String authorization
+    ){
         comprobarAutorizacion(authorization);
-        Optional<Alojamiento> alojamientoOptional = alojamientoService.findAlojamientoById(alojamiento.getId());
-        if(alojamientoOptional.isPresent()){
+        Optional<Alojamiento> alojamientoOptional = alojamientoService.findById(alojamiento.getId()); //buscamos a ver si dicho alojamiento existe
+        if(alojamientoOptional.isEmpty()){ //si NO existe lo añadimos...
+            comprobarNulos(alojamiento);
+            Propietario propietario = obtenerPropietario(alojamiento.getPropietario().getId());
+            TipoHabitacion tipoHabitacion = obtenerTipoHabitacion(alojamiento.getTipoHabitacion().getId());
+            Barrio barrio = obtenerBarrio(alojamiento.getBarrio().getId());
+            alojamiento.setPropietario(propietario);
+            alojamiento.setBarrio(barrio);
+            alojamiento.setTipoHabitacion(tipoHabitacion);
             return new ResponseEntity<Alojamiento>(alojamientoService.saveAlojamiento(alojamiento), HttpStatus.OK);
+        }else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El ID ya existe. Ya existe un alojamiento con este ID");
         }
-        return new ResponseEntity<Alojamiento>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping()
+    public ResponseEntity<Alojamiento> updateAlojamiento(@RequestBody Alojamiento alojamiento, @RequestHeader String authorization
+    ){
+        comprobarAutorizacion(authorization);
+        Optional<Alojamiento> updateAlojamiento = alojamientoService.findById(alojamiento.getId()); //buscamos a ver si dicho alojamiento existe
+        if(updateAlojamiento.isPresent()){ //si existe lo actualizamos
+            comprobarNulos(alojamiento);
+             obtenerPropietario(alojamiento.getPropietario().getId());
+             obtenerTipoHabitacion(alojamiento.getTipoHabitacion().getId());
+            obtenerBarrio(alojamiento.getBarrio().getId());
+            return new ResponseEntity<Alojamiento>(this.alojamientoService.updateAlojamiento(alojamiento), HttpStatus.OK);
+        }else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El ID de este alojamiento no existe. Introduce un ID de alojamiento válido");
+        }
+    }
+
+    private static void comprobarNulos(Alojamiento alojamiento) {
+        if(alojamiento.getPropietario()==null || alojamiento.getBarrio()==null || alojamiento.getTipoHabitacion()==null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Debes de instroducir un ID de propietaria, de barrio y de tipo de habitación válido");
+        }
+    }
+
+
+    private Barrio obtenerBarrio(Long id) {
+        Optional<Barrio> barrioOptional =  this.barrioService.findById(id);
+        if(barrioOptional.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El ID del barrio NO existe");
+        }else{
+            return barrioOptional.get();
+        }
+    }
+
+    private TipoHabitacion obtenerTipoHabitacion(Long id) {
+        Optional<TipoHabitacion> tipoHabitacionOptional =  this.tipoHabitacionService.findById(id);
+        if(tipoHabitacionOptional.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El ID del tipo de habitación NO existe");
+        }else{
+            return tipoHabitacionOptional.get();
+        }
+    }
+
+    private Propietario obtenerPropietario(Long id) {
+       Optional<Propietario> propietarioOptional =  this.propietarioService.findById(id);
+       if(propietarioOptional.isEmpty()){
+           throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El ID del propietario NO existe");
+       }else{
+           return propietarioOptional.get();
+       }
     }
 
 }

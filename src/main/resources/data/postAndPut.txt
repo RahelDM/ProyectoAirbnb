@@ -1,0 +1,21 @@
+{
+        "id": 2596,
+        "aseos": 0,
+        "banos": 1,
+        "camas": 1,
+        "habitaciones": 0,
+        "latitud": 40.75356,
+        "longitud": -73.98559,
+        "precio": 240.0,
+        "puntuacion": 4.68,
+        "nombre": "Raquel House",
+        "barrio": {
+            "id": 11
+        },
+        "tipoHabitacion": {
+            "id": 2
+                    },
+        "propietario": {
+            "id": 2845
+        }
+    }

@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface AlojamientoRepository  extends JpaRepository<Alojamiento,Long> {
 
+    @Query("SELECT a.id FROM alojamientos a WHERE a.nombre LIKE ?1")
+    Long findByNombre(String nombre);
     @Query("SELECT a FROM alojamientos a WHERE a.barrio.distrito.id=?1")
     List<Alojamiento> getAlojamientosByDistrito(Long idDistrito);
 

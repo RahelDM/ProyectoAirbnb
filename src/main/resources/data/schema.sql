@@ -18,7 +18,8 @@
 --
 -- Table structure for table `alojamientos`
 --
-
+CREATE DATABASE IF NOT EXISTS alojamientos;
+USE alojamientos;
 DROP TABLE IF EXISTS `alojamientos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -113,5 +114,16 @@ CREATE TABLE `tiposhabitacion` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE `usuarios`
+(
+    id  int auto_increment
+        primary key,
+    password varchar(10)  null,
+    nombre   varchar(255) null
+);
+INSERT INTO usuarios (id, password, nombre) VALUES (1, '1234', 'raquel');
 
 -- Dump completed on 2024-01-23 22:09:14

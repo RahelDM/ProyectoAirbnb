@@ -13,8 +13,10 @@ import java.util.Objects;
 @NoArgsConstructor
 public class Alojamiento implements Serializable {
 
+
     @Id
-    private Long id;
+  //  @GeneratedValue(strategy = GenerationType.IDENTITY) //Leemos los IDs del CSV
+    private Long id; //usamos el id del csv
 
     @Column(name = "aseos", nullable = false)
     private int aseos;

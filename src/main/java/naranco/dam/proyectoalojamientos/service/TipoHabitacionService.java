@@ -2,6 +2,7 @@ package naranco.dam.proyectoalojamientos.service;
 
 import naranco.dam.proyectoalojamientos.model.TipoHabitacion;
 
+import java.util.Optional;
 import java.util.Set;
 
 public interface TipoHabitacionService {
@@ -10,5 +11,6 @@ public interface TipoHabitacionService {
 
     Long obtenerIDTipoHabitacionPorNombre(String nombre);
 
+    Optional<TipoHabitacion> findById(Long id);
 
 }

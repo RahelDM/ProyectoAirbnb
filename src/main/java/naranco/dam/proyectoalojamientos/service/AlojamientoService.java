@@ -10,7 +10,10 @@ import java.util.Set;
 public interface AlojamientoService {
 
     List<Alojamiento> getAlojamientos(); //findAll()
-    Optional<Alojamiento> findAlojamientoById(Long id);
+
+    Optional<Alojamiento> findById(Long id);
+
+    Long obtenerIDAlojamientoPorNombre(String nombre);
 
     void insertar(Set<Alojamiento> alojamientos);
     List<Alojamiento>  getAlojamientosByDistrito(Long idDistrito);
@@ -27,5 +30,5 @@ public interface AlojamientoService {
 
     Alojamiento saveAlojamiento(Alojamiento alojamiento);
 
-
+    Alojamiento updateAlojamiento(Alojamiento alojamiento);
 }

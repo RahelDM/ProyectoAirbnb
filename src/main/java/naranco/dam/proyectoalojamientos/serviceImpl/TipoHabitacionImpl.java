@@ -7,6 +7,7 @@ import naranco.dam.proyectoalojamientos.service.TipoHabitacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -28,5 +29,10 @@ public class TipoHabitacionImpl implements TipoHabitacionService {
     @Override
     public Long obtenerIDTipoHabitacionPorNombre(String nombre) {
         return tipoHabitacionRespository.findByNombre(nombre);
+    }
+
+    @Override
+    public Optional<TipoHabitacion> findById(Long id) {
+        return this.tipoHabitacionRespository.findById(id);
     }
 }

@@ -26,4 +26,9 @@ public class PropietarioImpl implements PropietarioService {
         }
     }
 
+    @Override
+    public Optional<Propietario> findById(Long id) {
+        return this.propietarioRespository.findById(id);
+    }
+
 }
